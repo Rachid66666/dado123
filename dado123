@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dado Interactivo</title>
+  <style>
+    /* Estilos generales */
+    body, html {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Estilo del dado */
+    .dice {
+      width: 100px;
+      height: 100px;
+      background-color: white;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    /* Puntos del dado en rojo */
+    .dot {
+      width: 15px;
+      height: 15px;
+      background-color: red;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    /* Puntos en cada posición */
+    .dot1 { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .dot2 { top: 25%; left: 25%; }
+    .dot3 { top: 25%; right: 25%; }
+    .dot4 { bottom: 25%; left: 25%; }
+    .dot5 { bottom: 25%; right: 25%; }
+    .dot6 { top: 50%; left: 25%; transform: translateY(-50%); }
+    .dot7 { top: 50%; right: 25%; transform: translateY(-50%); }
+
+    /* Animación de "salto" */
+    .bounce {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+  <div id="dice" class="dice"></div>
+
+  <script>
+    // Referencia al contenedor del dado
+    const dice = document.getElementById("dice");
+
+    // Función para generar un número aleatorio y actualizar el dado
+    function rollDice() {
+      const number = Math.floor(Math.random() * 6) + 1;
+      dice.innerHTML = ""; // Limpia el contenido actual
+      dice.classList.add("bounce");
+
+      // Genera los puntos según el número aleatorio
+      switch (number) {
+        case 1:
+          dice.innerHTML = '<div class="dot dot1"></div>';
+          break;
+        case 2:
+          dice.innerHTML = '<div class="dot dot2"></div><div class="dot dot4"></div>';
+          break;
+        case 3:
+          dice.innerHTML = '<div class="dot dot1"></div><div class="dot dot2"></div><div class="dot dot4"></div>';
+          break;
+        case 4:
+          dice.innerHTML = '<div class="dot dot2"></div><div class="dot dot3"></div><div class="dot dot4"></div><div class="dot dot5"></div>';
+          break;
+        case 5:
+          dice.innerHTML = '<div class="dot dot1"></div><div class="dot dot2"></div><div class="dot dot3"></div><div class="dot dot4"></div><div class="dot dot5"></div>';
+          break;
+        case 6:
+          dice.innerHTML = '<div class="dot dot2"></div><div class="dot dot3"></div><div class="dot dot4"></div><div class="dot dot5"></div><div class="dot dot6"></div><div class="dot dot7"></div>';
+          break;
+      }
+
+      // Quita la clase "bounce" después de la animación
+      setTimeout(() => dice.classList.remove("bounce"), 200);
+    }
+
+    // Evento para cambiar el número al tocar la pantalla
+    dice.addEventListener("click", rollDice);
+
+    // Lanza el dado al cargar la página
+    rollDice();
+  </script>
+</body>
+</html>a
